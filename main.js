@@ -161,11 +161,13 @@ function closeLightbox() {
 function showPrev() {
   currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
   lightboxImg.src = currentImages[currentIndex];
+  showRandomCatFact(); // Refresh fact on navigation
 }
 
 function showNext() {
   currentIndex = (currentIndex + 1) % currentImages.length;
   lightboxImg.src = currentImages[currentIndex];
+  showRandomCatFact(); // Refresh fact on navigation
 }
 
 function showToast(message) {
