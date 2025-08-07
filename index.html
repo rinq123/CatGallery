@@ -9,9 +9,18 @@
   <header>
     <h1>Cat Gallery</h1>
     <div class="controls">
-      <button id="load-btn">Load Cats</button>
-      <button id="fav-btn">View Favorites</button>
-      <button id="toggle-dark-btn">Toggle Dark Mode</button>
+      <div class="controls-left">
+        <button id="load-btn">🐾 Load Cats</button>
+        <button id="fav-btn">❤️ View Favorites</button>
+      </div>
+      <div class="controls-right">
+        <label class="toggle-switch" aria-label="Toggle dark mode">
+          <span class="icon sun">☀️</span>
+          <input type="checkbox" id="toggle-dark-btn" />
+          <span class="slider"></span>
+          <span class="icon moon">🌙</span>
+        </label>
+      </div>
     </div>
   </header>
 

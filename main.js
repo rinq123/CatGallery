@@ -1,7 +1,7 @@
 // Grab DOM elements
 const loadBtn = document.querySelector('#load-btn');
 const favBtn = document.querySelector('#fav-btn');
-const toggleDarkBtn = document.querySelector('#toggle-dark-btn');
+const toggleDarkBtn = document.getElementById('toggle-dark-btn');
 const cardContainer = document.querySelector('.card-container');
 const spinner = document.querySelector('#spinner');
 const lightbox    = document.querySelector('#lightbox');
@@ -126,14 +126,14 @@ function toggleFavorite(url) {
 }
 
 // Dark mode
-toggleDarkBtn.onclick = () => {
-  document.body.classList.toggle('dark-mode');
-  localStorage.setItem(
-    'darkMode',
-    document.body.classList.contains('dark-mode')
-  );
+toggleDarkBtn.checked = localStorage.getItem('darkMode') === 'true';
+
+toggleDarkBtn.onchange = () => {
+  document.body.classList.toggle('dark-mode', toggleDarkBtn.checked);
+  localStorage.setItem('darkMode', toggleDarkBtn.checked);
 };
-if (localStorage.getItem('darkMode') === 'true') {
+// On load, set dark mode if needed
+if (toggleDarkBtn.checked) {
   document.body.classList.add('dark-mode');
 }
 

@@ -40,6 +40,10 @@ header {
   border-radius: 12px;
   margin-bottom: var(--space-l);
   box-shadow: 0 2px 12px rgba(255,176,133,0.08);
+  width: 100%;           /* Ensure header fills the top */
+  max-width: none;       /* Remove any max-width */
+  margin-left: 0;
+  margin-right: 0;
 }
 header h1 {
   margin: 0 0 0.5rem 0;
@@ -48,12 +52,29 @@ header h1 {
   font-weight: 700;
   color: #a0522d;
   text-shadow: 0 2px 8px #fffbe7;
+  text-align: center;
 }
 
 /* --- Controls --- */
 .controls {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: none;      /* Controls are centered and limited in width */
+  margin: 0 auto;
+  margin-top: 0.5rem;
+  padding: 0 1rem;
+  box-sizing: border-box;
+}
+.controls-left {
+  display: flex;
   gap: 1rem;
+}
+.controls-right {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;            /* Reduce gap for icons/switch */
 }
 .controls button {
   background: var(--paw);
@@ -76,6 +97,72 @@ header h1 {
   background: var(--paw-dark);
   color: #a0522d;
   transform: translateY(-2px) scale(1.04);
+}
+
+/* Toggle Switch */
+.toggle-switch {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  position: relative;
+  width: auto;
+  height: 28px;
+  background: none;
+  padding: 0;
+}
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+  position: absolute;
+}
+.toggle-switch .icon {
+  font-size: 1.2rem;
+  opacity: 0.7;
+  transition: opacity 0.3s;
+  pointer-events: none;
+  margin: 0;              /* Remove any default margin */
+}
+.toggle-switch .sun {
+  color: #ffb300;
+  margin-right: 0.2rem;
+}
+.toggle-switch .moon {
+  color: #3e2723;
+  margin-left: 0.2rem;
+}
+.slider {
+  position: relative;
+  width: 52px;
+  height: 28px;
+  background: #ffe4b3;
+  border-radius: 34px;
+  transition: background 0.3s;
+  display: flex;
+  align-items: center;
+}
+.slider:before {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 4px;
+  width: 20px;
+  height: 20px;
+  background: #fff;
+  border-radius: 50%;
+  transition: transform 0.3s;
+  box-shadow: 0 2px 8px rgba(255,176,133,0.10);
+}
+.toggle-switch input:checked + .slider {
+  background: #3e2723;
+}
+.toggle-switch input:checked + .slider:before {
+  transform: translateX(24px);
+}
+
+/* Hide default button style for switch */
+#toggle-dark-btn {
+  all: unset;
 }
 
 /* --- Gallery Grid --- */
