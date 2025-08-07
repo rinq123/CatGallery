@@ -1,0 +1,263 @@
+/* 1. Design Tokens: colors, spacing, fonts */
+:root {
+  --bg-light: #f7f8fa;
+  --bg-dark: #0d1117;
+  --text-light: #1a1a1a;
+  --text-dark: #c9d1d9;
+  --accent: #ffdc57;
+  --accent-hover: #ffeb8a;
+  --card-bg: #ffffff;
+  --card-bg-dark: #1e1e1e;
+
+  --font-main: 'Poppins', sans-serif;
+  --space-s: 0.5rem;
+  --space-m: 1rem;
+  --space-l: 2rem;
+}
+
+/* 2. Base styles */
+body {
+  margin: 0;
+  font-family: var(--font-main);
+  background: var(--bg-light);
+  color: var(--text-light);
+  transition: background 0.3s, color 0.3s;
+  padding: var(--space-m);
+}
+
+/* Dark mode support */
+body.dark-mode {
+  background: var(--bg-dark);
+  color: var(--text-dark);
+}
+
+/* 3. Header */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-m);
+  background: var(--accent);
+  border-radius: 8px;
+  margin-bottom: var(--space-l);
+}
+
+header h1 {
+  margin: 0;
+  font-size: 1.8rem;
+}
+
+.controls button {
+  margin-left: var(--space-s);
+  padding: var(--space-s) var(--space-m);
+  font-size: 1rem;
+  background: var(--text-light);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.controls button:hover {
+  background: var(--text-dark);
+}
+
+/* 4. Gallery grid */
+.card-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-m);
+}
+
+@media (min-width: 600px) {
+  .card-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 900px) {
+  .card-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* 5. Individual cat card */
+.card {
+  background: var(--card-bg);
+  border-radius: 8px;
+  padding: var(--space-m);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  transition: transform 0.2s;
+}
+
+body.dark-mode .card {
+  background: var(--card-bg-dark);
+}
+
+.card:hover {
+  transform: translateY(-4px);
+}
+
+.card img {
+  width: 100%;
+  border-radius: 6px;
+  object-fit: cover;
+}
+
+.card button {
+  margin-top: var(--space-s);
+  padding: var(--space-s) var(--space-m);
+  background: var(--accent);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+/* Pop-scale state */
+.card button.pop {
+  transform: scale(1.3);
+}
+
+.card button:hover {
+  background: var(--accent-hover);
+}
+
+
+/* Modal overlay */
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.8);
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+}
+
+/* Modal visible */
+.modal[aria-hidden="false"] {
+  display: flex;
+}
+
+/* Modal inner content */
+.modal-content {
+  position: relative;
+  max-width: 90%;
+  max-height: 90%;
+}
+
+/* Lightbox image */
+#lightbox-img {
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 4px;
+}
+
+/* Close button */
+.modal-close {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  font-size: 2rem;
+  background: transparent;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  z-index: 11;
+}
+
+/* Navigation arrows */
+.modal-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,0.5);
+  border: none;
+  color: #fff;
+  font-size: 2rem;
+  padding: 0.5rem;
+  cursor: pointer;
+}
+
+.modal-nav.prev {
+  left: 0.5rem;
+}
+
+.modal-nav.next {
+  right: 0.5rem;
+}
+/* 1. Modal favorite button: scale on toggle */
+.modal-fav {
+  position: absolute;
+  top: auto;
+  right: auto;
+  bottom: 1rem;
+  left: 1rem;
+  font-size: 1.2rem;
+  padding: 0.3rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s ease, color 0.2s ease;
+  z-index: 10;
+}
+
+.modal-fav.pop {
+  transform: scale(1.4);
+}
+
+/* 2. Toast container – holds all toasts in bottom-right corner */
+.toast-container {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  z-index: 9999;
+}
+
+/* 3. Individual toast message */
+.toast {
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  padding: 0.7rem 1rem;
+  border-radius: 4px;
+  font-size: 0.95rem;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 6. Footer */
+footer {
+  margin-top: var(--space-l);
+  text-align: center;
+  font-size: 0.9rem;
+  color: #888;
+}
+
+/* Spinner base */
+.spinner {
+  display: none;              /* hidden until fetch starts */
+  width: 3rem;
+  height: 3rem;
+  margin: var(--space-l) auto;/* vertical spacing + center */
+  border: 5px solid var(--accent-hover);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+/* Spin animation */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
