@@ -227,6 +227,21 @@ body.dark-mode .card {
   transform: scale(1.4);
 }
 
+.cat-fact-panel {
+  margin: 1rem 0;
+  padding: 0.75rem 1rem;
+  background: #fffbe7;
+  color: #444;
+  border-radius: 6px;
+  font-size: 1rem;
+  min-height: 2.5em;
+  text-align: center;
+}
+body.dark-mode .cat-fact-panel {
+  background: #33312a;
+  color: #ffe4b3;
+}
+
 /* 2. Toast container – holds all toasts in bottom-right corner */
 .toast-container {
   position: fixed;

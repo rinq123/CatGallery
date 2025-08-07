@@ -147,6 +147,8 @@ function openLightbox(index) {
 
   lightbox.setAttribute('aria-hidden', 'false');
   document.body.style.overflow = 'hidden'; // prevent background scroll
+  
+  showRandomCatFact(); // Show a random cat fact when opening lightbox
 }
 
 // Close the overlay
@@ -243,6 +245,19 @@ const observer = new IntersectionObserver(entries => {
   threshold: 0 // Trigger when 10% of sentinel is visible
 });
 observer.observe(sentinel);
+
+
+async function showRandomCatFact() {
+  const factPanel = document.getElementById('cat-fact');
+  factPanel.textContent = 'Loading cat fact...';
+  try {
+    const resp = await fetch('https://catfact.ninja/fact');
+    const data = await resp.json();
+    factPanel.textContent = data.fact;
+  } catch {
+    factPanel.textContent = 'Could not load a cat fact right now!';
+  }
+}
 
 
 // Events Listeners
