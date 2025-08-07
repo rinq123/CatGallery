@@ -1,21 +1,22 @@
-/* 1. Design Tokens: colors, spacing, fonts */
+/* --- Cat Theme Colors --- */
 :root {
-  --bg-light: #f7f8fa;
-  --bg-dark: #0d1117;
-  --text-light: #1a1a1a;
-  --text-dark: #c9d1d9;
-  --accent: #ffdc57;
-  --accent-hover: #ffeb8a;
-  --card-bg: #ffffff;
-  --card-bg-dark: #1e1e1e;
-
-  --font-main: 'Poppins', sans-serif;
+  --bg-light: #fff8f0;
+  --bg-dark: #2d232e;
+  --text-light: #3e2723;
+  --text-dark: #ffe4b3;
+  --accent: #ffb085;
+  --accent-hover: #ffd6b0;
+  --card-bg: #fffaf6;
+  --card-bg-dark: #3e2723;
+  --paw: #ffb085;
+  --paw-dark: #ffd6b0;
+  --font-main: 'Poppins', 'Segoe UI', Arial, sans-serif;
   --space-s: 0.5rem;
   --space-m: 1rem;
   --space-l: 2rem;
 }
 
-/* 2. Base styles */
+/* --- Base Styles --- */
 body {
   margin: 0;
   font-family: var(--font-main);
@@ -24,258 +25,226 @@ body {
   transition: background 0.3s, color 0.3s;
   padding: var(--space-m);
 }
-
-/* Dark mode support */
 body.dark-mode {
   background: var(--bg-dark);
   color: var(--text-dark);
 }
 
-/* 3. Header */
+/* --- Header --- */
 header {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
   padding: var(--space-m);
   background: var(--accent);
-  border-radius: 8px;
+  border-radius: 12px;
   margin-bottom: var(--space-l);
+  box-shadow: 0 2px 12px rgba(255,176,133,0.08);
 }
-
 header h1 {
-  margin: 0;
-  font-size: 1.8rem;
+  margin: 0 0 0.5rem 0;
+  font-size: 2.2rem;
+  letter-spacing: 0.03em;
+  font-weight: 700;
+  color: #a0522d;
+  text-shadow: 0 2px 8px #fffbe7;
 }
 
+/* --- Controls --- */
+.controls {
+  display: flex;
+  gap: 1rem;
+}
 .controls button {
-  margin-left: var(--space-s);
-  padding: var(--space-s) var(--space-m);
-  font-size: 1rem;
-  background: var(--text-light);
-  color: #fff;
+  background: var(--paw);
+  color: #3e2723;
   border: none;
-  border-radius: 4px;
+  border-radius: 2rem;
+  padding: 0.8rem 1.6rem;
+  font-size: 1.1rem;
+  font-family: inherit;
+  font-weight: 600;
+  letter-spacing: 0.02em;
   cursor: pointer;
-  transition: background 0.2s;
+  box-shadow: 0 2px 8px rgba(255,176,133,0.10);
+  transition: background 0.2s, color 0.2s, transform 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
 }
-
 .controls button:hover {
-  background: var(--text-dark);
+  background: var(--paw-dark);
+  color: #a0522d;
+  transform: translateY(-2px) scale(1.04);
 }
 
-/* 4. Gallery grid */
+/* --- Gallery Grid --- */
 .card-container {
   display: grid;
   grid-template-columns: 1fr;
   gap: var(--space-m);
 }
-
 @media (min-width: 600px) {
-  .card-container {
-    grid-template-columns: repeat(2, 1fr);
-  }
+  .card-container { grid-template-columns: repeat(2, 1fr); }
 }
-
 @media (min-width: 900px) {
-  .card-container {
-    grid-template-columns: repeat(3, 1fr);
-  }
+  .card-container { grid-template-columns: repeat(3, 1fr); }
 }
 
-/* 5. Individual cat card */
+/* --- Cat Card --- */
 .card {
   background: var(--card-bg);
-  border-radius: 8px;
-  padding: var(--space-m);
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  transition: transform 0.2s;
+  border-radius: 14px;
+  padding: 1.2rem 1rem 1rem 1rem;
+  box-shadow: 0 4px 16px rgba(255,176,133,0.10);
+  transition: transform 0.2s, box-shadow 0.2s;
+  text-align: center;
 }
-
-body.dark-mode .card {
-  background: var(--card-bg-dark);
-}
-
+body.dark-mode .card { background: var(--card-bg-dark); }
 .card:hover {
-  transform: translateY(-4px);
+  transform: translateY(-6px) scale(1.03);
+  box-shadow: 0 8px 32px rgba(255,176,133,0.18);
 }
-
 .card img {
   width: 100%;
-  border-radius: 6px;
+  border-radius: 10px;
   object-fit: cover;
+  margin-bottom: 0.7rem;
 }
-
 .card button {
   margin-top: var(--space-s);
   padding: var(--space-s) var(--space-m);
-  background: var(--accent);
+  background: var(--paw);
   border: none;
-  border-radius: 4px;
+  border-radius: 2rem;
   cursor: pointer;
   font-weight: bold;
-  transition: transform 0.2s ease, color 0.2s ease;
+  font-size: 1.1rem;
+  transition: transform 0.2s, background 0.2s;
 }
-
-/* Pop-scale state */
-.card button.pop {
-  transform: scale(1.3);
-}
-
 .card button:hover {
-  background: var(--accent-hover);
+  background: var(--paw-dark);
+  color: #a0522d;
+  transform: scale(1.08);
 }
 
-
-/* Modal overlay */
-.modal {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.8);
-  justify-content: center;
-  align-items: center;
-  z-index: 100;
-}
-
-/* Modal visible */
-.modal[aria-hidden="false"] {
-  display: flex;
-}
-
-/* Modal inner content */
+/* --- Modal --- */
 .modal-content {
+  background: #fffaf6;
+  border-radius: 18px;
+  box-shadow: 0 8px 32px rgba(255,176,133,0.18);
+  padding: 2rem 2.5rem 1.5rem 2.5rem;
+  max-width: 95vw;
+  width: 400px;
   position: relative;
-  max-width: 90%;
-  max-height: 90%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-height: 90vh;
+  overflow-y: auto;
+  pointer-events: auto;
 }
+body.dark-mode .modal-content { background: #3e2723; }
 
-/* Lightbox image */
+/* --- Lightbox image --- */
 #lightbox-img {
+  display: block;
   max-width: 100%;
-  max-height: 100%;
-  border-radius: 4px;
+  max-height: 45vh;
+  margin: 0 auto 1rem auto;
+  object-fit: contain;
+  border-radius: 10px;
+  box-shadow: 0 2px 12px rgba(255,176,133,0.10);
 }
 
-/* Close button */
-.modal-close {
-  position: absolute;
-  top: 0.5rem;
-  right: 0.5rem;
-  font-size: 2rem;
-  background: transparent;
-  border: none;
-  color: #fff;
-  cursor: pointer;
-  z-index: 11;
-}
-
-/* Navigation arrows */
+/* --- Modal Navigation Arrows --- */
 .modal-nav {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: rgba(0,0,0,0.5);
+  background: var(--paw);
+  color: #3e2723;
   border: none;
-  color: #fff;
+  border-radius: 50%;
+  width: 2.5rem;
+  height: 2.5rem;
   font-size: 2rem;
-  padding: 0.5rem;
   cursor: pointer;
+  z-index: 12;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(255,176,133,0.10);
+  transition: background 0.2s, color 0.2s, transform 0.2s;
+}
+.modal-nav.prev { left: 0.5rem; }
+.modal-nav.next { right: 0.5rem; }
+.modal-nav:hover {
+  background: var(--paw-dark);
+  color: #a0522d;
+  transform: scale(1.1);
 }
 
-.modal-nav.prev {
-  left: 0.5rem;
-}
-
-.modal-nav.next {
-  right: 0.5rem;
-}
-/* 1. Modal favorite button: scale on toggle */
-.modal-fav {
+/* --- Modal Buttons --- */
+.modal-actions {
   position: absolute;
-  top: auto;
-  right: auto;
-  bottom: 1rem;
-  left: 1rem;
-  font-size: 1.2rem;
-  padding: 0.3rem;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  transition: transform 0.2s ease, color 0.2s ease;
-  z-index: 10;
-}
-
-.modal-download{
-  position:absolute;
-  bottom: 1rem;
-  left: 3.5rem;
-  font-size: 1.2rem;
-  padding: 0.3rem;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  color: #fff;
-  z-index: 10;
-  transition: transform 0.2s;
-}
-
-.modal-download:hover {
-  transform: scale(1.2);
-}
-
-.modal-fav.pop {
-  transform: scale(1.4);
-}
-
-.cat-fact-panel {
-  margin: 1rem 0;
-  padding: 0.75rem 1rem;
-  background: #fffbe7;
-  color: #444;
-  border-radius: 6px;
-  font-size: 1rem;
-  min-height: 2.5em;
-  text-align: center;
-}
-body.dark-mode .cat-fact-panel {
-  background: #33312a;
-  color: #ffe4b3;
-}
-
-/* 2. Toast container – holds all toasts in bottom-right corner */
-.toast-container {
-  position: fixed;
-  bottom: 1rem;
+  top: 1rem;
   right: 1rem;
   display: flex;
-  flex-direction: column;
   gap: 0.5rem;
-  z-index: 9999;
+  z-index: 20;
+}
+.modal-bottom-actions {
+  position: absolute;
+  bottom: 1.2rem;
+  left: 1.2rem;
+  display: flex;
+  gap: 0.7rem;
+  z-index: 20;
+}
+.modal-fav, .modal-download, .modal-close {
+  margin: 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1.4rem;
+  margin: 0 0.5rem;
+  color: #ffb085;
+  transition: transform 0.2s, color 0.2s;
+}
+.modal-fav.pop { transform: scale(1.4); }
+.modal-fav:hover, .modal-download:hover { color: #a0522d; }
+
+/* --- Cat Fact Panel --- */
+.cat-fact-panel {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+  word-break: break-word;
+  max-width: 500px;
+  background: #fffbe7;
+  color: #444;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(255,220,87,0.12);
+  padding: 1rem 1.2rem;
+  font-size: 1.08rem;
+  font-style: italic;
+}
+body.dark-mode .cat-fact-panel {
+  background: #232526;
+  color: #ffe4b3;
+  box-shadow: 0 2px 8px rgba(255,220,87,0.08);
 }
 
-/* 3. Individual toast message */
-.toast {
-  background: rgba(0, 0, 0, 0.8);
-  color: #fff;
-  padding: 0.7rem 1rem;
-  border-radius: 4px;
-  font-size: 0.95rem;
-  opacity: 0;
-  transform: translateY(10px);
-  transition: opacity 0.3s ease, transform 0.3s ease;
-}
-
-.toast.show {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* 6. Footer */
+/* --- Footer --- */
 footer {
   margin-top: var(--space-l);
   text-align: center;
   font-size: 0.9rem;
-  color: #888;
+  color: #a0522d;
+  opacity: 0.7;
 }
 
 /* Spinner base */
@@ -293,4 +262,18 @@ footer {
 /* Spin animation */
 @keyframes spin {
   to { transform: rotate(360deg); }
+}
+
+#lightbox.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(60, 40, 20, 0.55);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: auto;
+}
+#lightbox[aria-hidden="true"] {
+  display: none;
 }

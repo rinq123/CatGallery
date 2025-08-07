@@ -32,13 +32,17 @@
   <!-- Modal Lightbox -->
 <div id="lightbox" class="modal" aria-hidden="true" role="dialog" aria-labelledby="lightbox-title">
   <div class="modal-content">
-    <button id="modal-fav-btn" class="modal-fav">🤍</button>
-    <button id="modal-download-btn" class ="modal-download" aria-label="Download image">⬇️</button>
-    <button class="modal-close" aria-label="Close lightbox">&times;</button>
+    <div class="modal-actions">
+      <button class="modal-close" aria-label="Close lightbox">&times;</button>
+    </div>
     <img id="lightbox-img" src="" alt="" />
-    <div id ="cat-fact" class="cat-fact-panel"></div>
+    <div id="cat-fact" class="cat-fact-panel"></div>
     <button class="modal-nav prev" aria-label="Previous image">&#10094;</button>
     <button class="modal-nav next" aria-label="Next image">&#10095;</button>
+    <div class="modal-bottom-actions">
+      <button id="modal-fav-btn" class="modal-fav">🤍</button>
+      <button id="modal-download-btn" class="modal-download" aria-label="Download image">⬇️</button>
+    </div>
   </div>
 </div>
 
