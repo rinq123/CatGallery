@@ -262,10 +262,5 @@ nextBtn.onclick  = showNext;
 
 modalDownloadBtn.onclick = () => {
   const url = currentImages[currentIndex];
-  const link = document.createElement('a');
-  link.href = url;
-  link.download = 'cat.jpg'; // You can customize the filename
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
+  window.open(url, '_blank'); // Open in new tab
 }
