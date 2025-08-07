@@ -14,6 +14,7 @@ const sentinel = document.querySelector('#scroll-sentinel');
 const breedSelect = document.querySelector('#breed-select');
 const filterForm = document.getElementById('filter-form');
 const searchInput = document.getElementById('search-input');
+const modalDownloadBtn = document.querySelector('#modal-download-btn');
 
 // Track the current page for infinite scroll
 let currentPage = 0;
@@ -253,7 +254,18 @@ favBtn.onclick = () => {
   viewingFavorites = true;
   fetchCats(true);
 }
+
 document.addEventListener('DOMContentLoaded', () => fetchCats(false));
 closeBtn.onclick = closeLightbox;
 prevBtn.onclick  = showPrev;
 nextBtn.onclick  = showNext;
+
+modalDownloadBtn.onclick = () => {
+  const url = currentImages[currentIndex];
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = 'cat.jpg'; // You can customize the filename
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
