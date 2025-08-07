@@ -160,6 +160,25 @@ header h1 {
   transform: translateX(24px);
 }
 
+/* Add this to your .slider for hover effect */
+.toggle-switch:hover .slider {
+  background: #ffe4b3cc; /* Slightly brighter or more opaque */
+  box-shadow: 0 0 8px 2px #ffd6b0;
+}
+
+/* Animate the knob on hover */
+.toggle-switch:hover .slider:before {
+  transform: scale(1.08) translateX(0); /* Slightly bigger */
+}
+
+/* If checked, keep the translation and add scale */
+.toggle-switch input:checked + .slider:before {
+  transform: translateX(24px);
+}
+.toggle-switch:hover input:checked + .slider:before {
+  transform: scale(1.08) translateX(24px);
+}
+
 /* Hide default button style for switch */
 #toggle-dark-btn {
   all: unset;
