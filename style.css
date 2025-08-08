@@ -383,3 +383,93 @@ footer {
 #lightbox[aria-hidden="true"] {
   display: none;
 }
+
+/* --- Auth Modal Styles --- */
+#auth-modal.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(60, 40, 20, 0.55);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#auth-modal[aria-hidden="true"] {
+  display: none;
+}
+.auth-modal-content {
+  background: #fffaf6;
+  border-radius: 18px;
+  box-shadow: 0 8px 32px rgba(255,176,133,0.18);
+  padding: 2rem 2.5rem 1.5rem 2.5rem;
+  width: 350px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+body.dark-mode .auth-modal-content { background: #3e2723; color: #ffe4b3; }
+.auth-modal-content input {
+  width: 100%;
+  margin-bottom: 1rem;
+  padding: 0.7rem;
+  border-radius: 8px;
+  border: 1px solid #ffd6b0;
+  font-size: 1rem;
+}
+.auth-modal-content button[type="submit"] {
+  width: 100%;
+  background: var(--paw);
+  color: #3e2723;
+  border: none;
+  border-radius: 2rem;
+  padding: 0.7rem 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 0.5rem;
+}
+.auth-modal-content button[type="submit"]:hover {
+  background: var(--paw-dark);
+  color: #a0522d;
+}
+.auth-message {
+  min-height: 1.2em;
+  color: #c0392b;
+  font-size: 0.98em;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+.auth-btn {
+  margin-left: 1rem;
+  background: var(--paw);
+  color: #3e2723;
+  border: none;
+  border-radius: 2rem;
+  padding: 0.5rem 1.2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.auth-btn:hover {
+  background: var(--paw-dark);
+  color: #a0522d;
+}
+.auth-modal-content a#toggle-auth-link {
+  color: #a0522d;
+  text-decoration: underline;
+  font-size: 1rem;
+  margin-top: 0.5rem;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.auth-modal-content a#toggle-auth-link:hover {
+  color: #ffb085;
+}
+body.dark-mode .auth-modal-content a#toggle-auth-link {
+  color: #ffe4b3;
+}
+body.dark-mode .auth-modal-content a#toggle-auth-link:hover {
+  color: #ffd6b0;
+}

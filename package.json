@@ -1,0 +1,28 @@
+{
+  "name": "catgallery",
+  "version": "1.0.0",
+  "description": "website that shows cats from thecatapi",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rinq123/CatGallery.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rinq123/CatGallery/issues"
+  },
+  "homepage": "https://github.com/rinq123/CatGallery#readme",
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "dotenv": "^17.2.1",
+    "express": "^5.1.0",
+    "express-session": "^1.18.2",
+    "mongodb": "^6.18.0",
+    "mongoose": "^8.17.1"
+  }
+}

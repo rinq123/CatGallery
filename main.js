@@ -15,6 +15,10 @@ const breedSelect = document.querySelector('#breed-select');
 const filterForm = document.getElementById('filter-form');
 const searchInput = document.getElementById('search-input');
 const modalDownloadBtn = document.querySelector('#modal-download-btn');
+const authBtn = document.getElementById('auth-btn');
+const userInfo = document.getElementById('user-info');
+const userGreeting = document.getElementById('user-greeting');
+const logoutBtn = document.getElementById('logout-btn');
 
 // Track the current page for infinite scroll
 let currentPage = 0;
@@ -262,6 +266,117 @@ async function showRandomCatFact() {
 }
 
 
+// --- Auth Modal Logic ---
+const authModal = document.getElementById('auth-modal');
+const authCloseBtn = document.getElementById('auth-modal-close');
+const loginForm = document.getElementById('login-form');
+const signupForm = document.getElementById('signup-form');
+const toggleAuthLink = document.getElementById('toggle-auth-link');
+const authTitle = document.getElementById('auth-title');
+const loginMessage = document.getElementById('login-message');
+const signupMessage = document.getElementById('signup-message');
+
+let showLogin = true;
+
+function openAuthModal(login = true) {
+  showLogin = login;
+  authModal.setAttribute('aria-hidden', 'false');
+  loginForm.style.display = login ? '' : 'none';
+  signupForm.style.display = login ? 'none' : '';
+  authTitle.textContent = login ? 'Login' : 'Sign Up';
+  toggleAuthLink.textContent = login
+    ? "Don't have an account? Sign up"
+    : "Already have an account? Login";
+  loginMessage.textContent = '';
+  signupMessage.textContent = '';
+}
+function closeAuthModal() {
+  authModal.setAttribute('aria-hidden', 'true');
+}
+
+authBtn.onclick = () => openAuthModal(true);
+authCloseBtn.onclick = closeAuthModal;
+toggleAuthLink.onclick = (e) => {
+  e.preventDefault();
+  openAuthModal(!showLogin);
+};
+authModal.onclick = (e) => {
+  if (e.target === authModal) closeAuthModal();
+};
+
+// Login form submit
+loginForm.onsubmit = async (e) => {
+  e.preventDefault();
+  const username = document.getElementById('login-username').value;
+  const password = document.getElementById('login-password').value;
+  const res = await fetch('/api/login', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ username, password })
+  });
+  const data = await res.json();
+  if (res.ok) {
+    loginMessage.style.color = "green";
+    loginMessage.textContent = "Login successful!";
+    setTimeout(() => {
+      closeAuthModal();
+      checkLogin(); // <-- Add this line
+    }, 800);
+  } else {
+    loginMessage.style.color = "#c0392b";
+    loginMessage.textContent = data.error || "Login failed";
+  }
+};
+
+// Signup form submit
+signupForm.onsubmit = async (e) => {
+  e.preventDefault();
+  const username = document.getElementById('signup-username').value;
+  const password = document.getElementById('signup-password').value;
+  const res = await fetch('/api/register', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ username, password })
+  });
+  const data = await res.json();
+  if (res.ok) {
+    signupMessage.style.color = "green";
+    signupMessage.textContent = "Signup successful! You can now log in.";
+    setTimeout(() => openAuthModal(true), 1200);
+  } else {
+    signupMessage.style.color = "#c0392b";
+    signupMessage.textContent = data.error || "Signup failed";
+  }
+};
+
+// Check login state on page load
+async function checkLogin() {
+  const res = await fetch('/api/me');
+  if (res.ok) {
+    const data = await res.json();
+    showUser(data.user.username);
+  } else {
+    showLoginBtn();
+  }
+}
+
+function showUser(username) {
+  authBtn.style.display = 'none';
+  userInfo.style.display = '';
+  userGreeting.textContent = `Welcome, ${username}!`;
+}
+
+function showLoginBtn() {
+  authBtn.style.display = '';
+  userInfo.style.display = 'none';
+}
+
+// Logout handler
+logoutBtn.onclick = async () => {
+  await fetch('/api/logout', { method: 'POST' });
+  showLoginBtn();
+};
+
 // Events Listeners
 loadBtn.onclick = () => {
   viewingFavorites = false;
@@ -281,3 +396,6 @@ modalDownloadBtn.onclick = () => {
   const url = currentImages[currentIndex];
   window.open(url, '_blank'); // Open in new tab
 }
+
+// On page load
+checkLogin();
