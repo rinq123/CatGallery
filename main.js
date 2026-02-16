@@ -276,6 +276,7 @@ const authTitle = document.getElementById('auth-title');
 const loginMessage = document.getElementById('login-message');
 const signupMessage = document.getElementById('signup-message');
 
+const authDisabled = authBtn && authBtn.hasAttribute('disabled');
 let showLogin = true;
 
 function openAuthModal(login = true) {
@@ -294,60 +295,62 @@ function closeAuthModal() {
   authModal.setAttribute('aria-hidden', 'true');
 }
 
-authBtn.onclick = () => openAuthModal(true);
-authCloseBtn.onclick = closeAuthModal;
-toggleAuthLink.onclick = (e) => {
-  e.preventDefault();
-  openAuthModal(!showLogin);
-};
-authModal.onclick = (e) => {
-  if (e.target === authModal) closeAuthModal();
-};
+if (!authDisabled) {
+  authBtn.onclick = () => openAuthModal(true);
+  authCloseBtn.onclick = closeAuthModal;
+  toggleAuthLink.onclick = (e) => {
+    e.preventDefault();
+    openAuthModal(!showLogin);
+  };
+  authModal.onclick = (e) => {
+    if (e.target === authModal) closeAuthModal();
+  };
 
-// Login form submit
-loginForm.onsubmit = async (e) => {
-  e.preventDefault();
-  const username = document.getElementById('login-username').value;
-  const password = document.getElementById('login-password').value;
-  const res = await fetch('/api/login', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ username, password })
-  });
-  const data = await res.json();
-  if (res.ok) {
-    loginMessage.style.color = "green";
-    loginMessage.textContent = "Login successful!";
-    setTimeout(() => {
-      closeAuthModal();
-      checkLogin(); // <-- Add this line
-    }, 800);
-  } else {
-    loginMessage.style.color = "#c0392b";
-    loginMessage.textContent = data.error || "Login failed";
-  }
-};
+  // Login form submit
+  loginForm.onsubmit = async (e) => {
+    e.preventDefault();
+    const username = document.getElementById('login-username').value;
+    const password = document.getElementById('login-password').value;
+    const res = await fetch('/api/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username, password })
+    });
+    const data = await res.json();
+    if (res.ok) {
+      loginMessage.style.color = 'green';
+      loginMessage.textContent = 'Login successful!';
+      setTimeout(() => {
+        closeAuthModal();
+        checkLogin();
+      }, 800);
+    } else {
+      loginMessage.style.color = '#c0392b';
+      loginMessage.textContent = data.error || 'Login failed';
+    }
+  };
 
-// Signup form submit
-signupForm.onsubmit = async (e) => {
-  e.preventDefault();
-  const username = document.getElementById('signup-username').value;
-  const password = document.getElementById('signup-password').value;
-  const res = await fetch('/api/register', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ username, password })
-  });
-  const data = await res.json();
-  if (res.ok) {
-    signupMessage.style.color = "green";
-    signupMessage.textContent = "Signup successful! You can now log in.";
-    setTimeout(() => openAuthModal(true), 1200);
-  } else {
-    signupMessage.style.color = "#c0392b";
-    signupMessage.textContent = data.error || "Signup failed";
-  }
-};
+  // Signup form submit
+  signupForm.onsubmit = async (e) => {
+    e.preventDefault();
+    const username = document.getElementById('signup-username').value;
+    const password = document.getElementById('signup-password').value;
+    const res = await fetch('/api/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username, password })
+    });
+    const data = await res.json();
+    if (res.ok) {
+      signupMessage.style.color = 'green';
+      signupMessage.textContent = 'Signup successful! You can now log in.';
+      setTimeout(() => openAuthModal(true), 1200);
+    } else {
+      signupMessage.style.color = '#c0392b';
+      signupMessage.textContent = data.error || 'Signup failed';
+    }
+  };
+}
 
 // Check login state on page load
 async function checkLogin() {
@@ -372,10 +375,12 @@ function showLoginBtn() {
 }
 
 // Logout handler
-logoutBtn.onclick = async () => {
-  await fetch('/api/logout', { method: 'POST' });
-  showLoginBtn();
-};
+if (!authDisabled) {
+  logoutBtn.onclick = async () => {
+    await fetch('/api/logout', { method: 'POST' });
+    showLoginBtn();
+  };
+}
 
 // Events Listeners
 loadBtn.onclick = () => {
@@ -398,4 +403,6 @@ modalDownloadBtn.onclick = () => {
 }
 
 // On page load
-checkLogin();
+if (!authDisabled) {
+  checkLogin();
+}

@@ -456,6 +456,27 @@ body.dark-mode .auth-modal-content { background: #3e2723; color: #ffe4b3; }
   background: var(--paw-dark);
   color: #a0522d;
 }
+.auth-btn[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.auth-note {
+  font-size: 0.85rem;
+  color: #7a5a4f;
+  opacity: 0.85;
+  margin-left: 0.5rem;
+}
+.auth-modal-content button[disabled],
+.auth-modal-content input[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.auth-disabled {
+  color: #7a5a4f;
+  opacity: 0.75;
+  cursor: not-allowed;
+  text-decoration: none;
+}
 .auth-modal-content a#toggle-auth-link {
   color: #a0522d;
   text-decoration: underline;
